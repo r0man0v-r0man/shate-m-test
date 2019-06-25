@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using shate_m_test.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace shate_m_test
 {
@@ -23,6 +25,8 @@ namespace shate_m_test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ShateMContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ShateMConnection")));
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -30,7 +34,7 @@ namespace shate_m_test
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

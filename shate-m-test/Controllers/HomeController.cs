@@ -4,26 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using shate_m_test.DAL;
+using shate_m_test.DAL.Context;
 using shate_m_test.Models;
 
 namespace shate_m_test.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ShateMContext context;
+        public HomeController(ShateMContext context)
         {
-            return View();
+            this.context = context;
         }
-
-        public IActionResult Privacy()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Brands = await context.Brands.ToListAsync();
+            ViewBag.CarModels = await context.CarModels.ToListAsync();
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
