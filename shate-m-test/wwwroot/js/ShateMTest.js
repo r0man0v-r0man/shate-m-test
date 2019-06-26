@@ -28,7 +28,7 @@ ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     input.setAttribute("value", brandId);
     li.classList.add("list-group-item", "list-group-item-primary");
     li.innerText = brandName;
-    liBrandId.className = "invisible";
+    liBrandId.style.display = "none";
     liBrandId.appendChild(input);
     carList.appendChild(li);
     carList.appendChild(liBrandId);
