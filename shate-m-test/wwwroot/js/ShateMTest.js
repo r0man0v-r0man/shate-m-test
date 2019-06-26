@@ -22,7 +22,6 @@ submitAddBrand.onclick = function (event) {
 };
 ShateMTestConnection.on("AddBrand", function (brandName) {
     var li = document.createElement("li");
-    var badge = document.createElement("span");
     li.classList.add("list-group-item", "list-group-item-primary");
     li.innerText = brandName;
     carList.appendChild(li);
