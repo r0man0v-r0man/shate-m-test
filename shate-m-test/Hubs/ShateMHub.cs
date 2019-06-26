@@ -16,21 +16,19 @@ namespace shate_m_test.Hubs
         {
             this.context = context;
         }
-        public async Task AddBrand(string newBrand)
+        public async Task AddBrand(string newBrandName)
         {
-            var newCarBrand = new Brand
+            
+            await context.Brands.AddAsync(new Brand
             {
-                Name = newBrand
-            };
-            await context.Brands.AddAsync(newCarBrand);
+                Name = newBrandName
+            });
             await context.SaveChangesAsync();
-            var test = GetName(context.Brands.FirstOrDefault(c => c.Name == newCarBrand.Name));
-            await Clients.All.SendAsync("AddBrand", test);
-        }
-        public string GetName(Brand brand)
-        {
-            var result = context.Brands.FirstOrDefault(c=>c.Name == brand.Name);
-            return result.Name;
+            
+            await Clients.All.SendAsync("AddBrand", 
+                                        context.Brands.FirstOrDefault(c=>c.Name == newBrandName).Name,
+                                        context.Brands.FirstOrDefault(c => c.Name == newBrandName).BrandId
+                                        );
         }
     }
 }

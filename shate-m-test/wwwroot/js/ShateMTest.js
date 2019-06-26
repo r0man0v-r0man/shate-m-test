@@ -20,9 +20,16 @@ submitAddBrand.onclick = function (event) {
     event.preventDefault();
     document.getElementById("brand").value = "";
 };
-ShateMTestConnection.on("AddBrand", function (brandName) {
+ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     var li = document.createElement("li");
+    var liBrandId = document.createElement("li");
+    var input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("value", brandId);
     li.classList.add("list-group-item", "list-group-item-primary");
     li.innerText = brandName;
+    liBrandId.className = "invisible";
+    liBrandId.appendChild(input);
     carList.appendChild(li);
+    carList.appendChild(liBrandId);
 });
