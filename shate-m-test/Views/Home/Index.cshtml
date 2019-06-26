@@ -8,11 +8,10 @@
             @foreach (var brand in Model.Brands)
             {
                 
-            <li class="list-group-item">               
-            @brand.Name               
+            <li class="list-group-item">@brand.Name</li>
+            <li class="d-none">
                 <input type="hidden" value="@brand.BrandId" name="brandId" />
             </li>
-            
             }
         </ul>
     </div>
