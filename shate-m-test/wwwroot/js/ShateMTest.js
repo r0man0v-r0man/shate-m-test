@@ -2,7 +2,7 @@
 var ShateMTestConnection = new signalR.HubConnectionBuilder().withUrl("/ShateMHub").build();
 
 var submitAddBrand = document.getElementById("add-brand-submit");
-
+var carList = document.getElementById("car-brand-list");
 
 ShateMTestConnection.start()
     .then(function () {
@@ -18,10 +18,12 @@ submitAddBrand.onclick = function (event) {
             return console.error(err.toString());
         });
     event.preventDefault();
+    document.getElementById("brand").value = "";
 };
 ShateMTestConnection.on("AddBrand", function (brandName) {
     var li = document.createElement("li");
+    var badge = document.createElement("span");
     li.classList.add("list-group-item", "list-group-item-primary");
     li.innerText = brandName;
-    document.getElementById("car-brand-list").appendChild(li);
+    carList.appendChild(li);
 });
