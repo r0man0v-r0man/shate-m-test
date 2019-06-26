@@ -1,21 +1,29 @@
-﻿@{
+﻿@model shate_m_test.Models.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
-    <div class="row">
-        <div class="col-3">
-            <ul>
-                @foreach (var brand in ViewBag.Brands)
-                {
-                    <li>@brand.Name</li>
-                }
-            </ul>
-        </div>
-        <div class="col-3">
-            <ul>
-                @foreach (var carModel in ViewBag.CarModels)
-                {
-                    <li>@carModel.Name</li>
-                }
-            </ul>
-        </div>
+<div class="row">
+    <div class="col-3 text-right">
+        <ul class="list-group list-group-flush">
+            @foreach (var brand in Model.Brands)
+            {
+                <li class="list-group-item">@brand.Name</li>
+            }
+        </ul>
     </div>
+    <div class="col-5">
+        <ul class="list-group list-group-flush">
+            @foreach (var carModel in Model.CarModels)
+            {
+                <li class="list-group-item">@carModel.Name</li>
+            }
+        </ul>
+    </div>
+    <div class="col-4">
+        @{await Html.RenderPartialAsync("_AddBrand", new AddBrand());}
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/aspnet-signalr/signalr.min.js"></script>
+    <script src="~/js/ShateMTest.js"></script>
+}

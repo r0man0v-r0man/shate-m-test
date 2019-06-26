@@ -20,9 +20,12 @@ namespace shate_m_test.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.Brands = await context.Brands.ToListAsync();
-            ViewBag.CarModels = await context.CarModels.ToListAsync();
-            return View();
+            var homeModel = new HomeViewModel
+            {
+                Brands = await context.Brands.ToListAsync(),
+                CarModels = await context.CarModels.ToListAsync()
+            };
+            return View(homeModel);
         }
     }
 }

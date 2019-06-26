@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using shate_m_test.DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using shate_m_test.Hubs;
 
 namespace shate_m_test
 {
@@ -36,6 +37,7 @@ namespace shate_m_test
 
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +54,10 @@ namespace shate_m_test
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ShateMHub>("/ShateMHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
