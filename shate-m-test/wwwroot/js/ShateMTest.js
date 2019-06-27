@@ -43,14 +43,26 @@ submitAddCarModel.onclick = function () {
             return console.error(err.toString());
         });
 };
-
 [].forEach.call(showBtns, function (item) {
-    
     item.addEventListener("click", function (event) {
+        while (modelList.firstChild) {
+            modelList.removeChild(modelList.firstChild);
+        };
         ShateMTestConnection.invoke("GetModels", item.closest("li").getElementsByTagName("input")[0].value)
             .catch(function (err) {
                 return console.error(err.toString());
             });
         event.preventDefault();
     });
+});
+ShateMTestConnection.on("GetModels", function (data) {
+    var result = JSON.parse(data);
+    if (!modelList.childElementCount) {
+        for (var i = 0; i < result.length; i++) {
+            var li = document.createElement("li");
+            li.innerText = result[i].Name;
+            modelList.appendChild(li);
+        };
+    };
+    
 });
