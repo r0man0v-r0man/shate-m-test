@@ -8,10 +8,8 @@
             @foreach (var brand in Model)
             {
             <li class="nav-item">
-                <a class="nav-link" href="#" >@brand.Name</a>
+                <a class="nav-link" href="#">@brand.Name</a>
                 <button id="show-btn">show</button>
-            </li>
-            <li class="d-none">
                 <input id="b-id" type="hidden" value="@brand.Id" name="brandId" />
             </li>
             }

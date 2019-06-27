@@ -38,7 +38,7 @@ namespace shate_m_test.Hubs
         }
         public async Task GetModels(int id)
         {
-            var modelList = await context.CarModels.Where(c => c.BrandId == id).ToArrayAsync();
+            var modelList = context.CarModels.Where(c => c.BrandId == id).ToArray();
             await Clients.All.SendAsync("GetModels", modelList);
         }
     }

@@ -47,8 +47,8 @@ submitAddCarModel.onclick = function () {
 [].forEach.call(showBtns, function (item) {
     
     item.addEventListener("click", function (event) {
-        
-        connectionLike.invoke("GetModels", "1")
+        alert(item.closest("li").getElementsByTagName("input")[0].value);
+        ShateMTestConnection.invoke("GetModels", "1")
             .catch(function (err) {
                 return console.error(err.toString());
             });
