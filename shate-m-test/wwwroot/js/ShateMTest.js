@@ -5,10 +5,10 @@ var submitAddBrand = document.getElementById("add-brand-submit");
 var carList = document.getElementById("car-brand-list");
 var submitAddCarModel = document.getElementById("add-car-model-submit");
 var modelList = document.getElementById("model-list");
-var showBtns = document.querySelectorAll("#show-btn");
+var showLinks = document.querySelectorAll("#show-link");
 ShateMTestConnection.start()
     .then(function () {
-        console.log("connection addbrand started");
+        console.log("connection shate m started");
     })
     .catch(error => {
         console.error(error.message);
@@ -43,7 +43,7 @@ submitAddCarModel.onclick = function () {
             return console.error(err.toString());
         });
 };
-[].forEach.call(showBtns, function (item) {
+[].forEach.call(showLinks, function (item) {
     item.addEventListener("click", function (event) {
         while (modelList.firstChild) {
             modelList.removeChild(modelList.firstChild);
@@ -60,6 +60,7 @@ ShateMTestConnection.on("GetModels", function (data) {
     if (!modelList.childElementCount) {
         for (var i = 0; i < result.length; i++) {
             var li = document.createElement("li");
+            li.className = "list-group-item";
             li.innerText = result[i].Name;
             modelList.appendChild(li);
         };

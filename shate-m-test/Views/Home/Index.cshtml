@@ -1,29 +1,32 @@
-﻿@model  List<shate_m_test.Models.BrandViewModel>
+﻿@model List<shate_m_test.Models.BrandViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
 <div class="row">
     <div class="col-3 text-right">
-        <ul id="car-brand-list" class="nav flex-column justify-content-end">
+        <ul id="car-brand-list" class="list-group list-group-flush justify-content-end">
             @foreach (var brand in Model)
             {
-            <li class="nav-item">
-                <a class="nav-link" href="#">@brand.Name</a>
-                <button id="show-btn">show</button>
-                <input id="b-id" type="hidden" value="@brand.Id" name="brandId" />
-            </li>
+                <li class="list-group-item list-group-item-action">
+                    <a id="show-link" class="link" href="#">@brand.Name</a>
+                    <input id="b-id" type="hidden" value="@brand.Id" name="brandId" />
+                </li>
             }
         </ul>
     </div>
-    <div class="col-5">
-        <partial name="_Models"/>
+    <div class="col-3">
+        <partial name="_Models" />
     </div>
-    <div class="col-4">
+    <div class="col-6">
         @{await Html.RenderPartialAsync("_AddBrand", new AddBrand());}
-        @{await Html.RenderPartialAsync("AddCarModel", new AddCarBrandViewModel { Brands = ViewBag.BrandList});}
+        @{await Html.RenderPartialAsync("AddCarModel", new AddCarBrandViewModel { Brands = ViewBag.BrandList });}
     </div>
 </div>
 @section Scripts{
     <script src="~/lib/aspnet-signalr/signalr.min.js"></script>
     <script src="~/js/ShateMTest.js"></script>
+    <script src="~/lib/bootstrap-select.min.js"></script>
+    <script>
+        $("select").selectpicker();
+    </script>
 }
