@@ -30,5 +30,6 @@ namespace shate_m_test.Controllers
 
             return View(homeModel);
         }
+       
     }
 }

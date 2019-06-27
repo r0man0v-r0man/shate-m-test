@@ -30,5 +30,11 @@ namespace shate_m_test.Hubs
                                         context.Brands.FirstOrDefault(c => c.Name == newBrandName).BrandId
                                         );
         }
+        public async Task AddCarModel(int brandId, string modelName)
+        {
+            await context.CarModels.AddAsync(new CarModel { Name = modelName, BrandId = brandId});
+            await context.SaveChangesAsync();
+            await Clients.All.SendAsync("AddCarModel", "test");
+        }
     }
 }

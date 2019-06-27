@@ -3,7 +3,8 @@ var ShateMTestConnection = new signalR.HubConnectionBuilder().withUrl("/ShateMHu
 
 var submitAddBrand = document.getElementById("add-brand-submit");
 var carList = document.getElementById("car-brand-list");
-
+var submitAddCarModel = document.getElementById("add-car-model-submit");
+var ttt = document.querySelector("#car-model");
 ShateMTestConnection.start()
     .then(function () {
         console.log("connection addbrand started");
@@ -34,3 +35,10 @@ ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     carList.appendChild(li);
     carList.appendChild(liBrandId);
 });
+
+submitAddCarModel.onclick = function () {
+    ShateMTestConnection.invoke("AddCarModel", document.getElementById("brand-id").value, document.getElementById("car-model").value )
+        .catch(function (err) {
+            return console.error(err.toString());
+        });
+};
