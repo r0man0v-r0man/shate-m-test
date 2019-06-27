@@ -1,0 +1,6 @@
+﻿@model  shate_m_test.Models.AddCarBrandViewModel
+<form class="form-inline">
+    <select asp-for="BrandId" asp-items="Model.Brands"></select>
+    <input asp-for="Name" class="form-control mb-2 mr-sm-2" type="text" name="modelName" value="" placeholder="car model"/>
+    <button type="submit" class="btn btn-primary mb-2">Add</button>
+</form>

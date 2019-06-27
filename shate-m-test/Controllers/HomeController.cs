@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using shate_m_test.DAL;
 using shate_m_test.DAL.Context;
@@ -25,6 +26,8 @@ namespace shate_m_test.Controllers
                 Brands = await context.Brands.ToListAsync(),
                 CarModels = await context.CarModels.ToListAsync()
             };
+            ViewBag.BrandList = context.Brands.Select(a => new SelectListItem() { Value = a.BrandId.ToString(), Text = a.Name }).ToList();
+
             return View(homeModel);
         }
     }
