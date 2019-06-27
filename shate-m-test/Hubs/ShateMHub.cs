@@ -34,7 +34,12 @@ namespace shate_m_test.Hubs
         {
             await context.CarModels.AddAsync(new CarModel { Name = modelName, BrandId = brandId});
             await context.SaveChangesAsync();
-            await Clients.All.SendAsync("AddCarModel", "test");
+            await Clients.All.SendAsync("AddCarModel");
+        }
+        public async Task GetModels(int id)
+        {
+            var modelList = await context.CarModels.Where(c => c.BrandId == id).ToArrayAsync();
+            await Clients.All.SendAsync("GetModels", modelList);
         }
     }
 }

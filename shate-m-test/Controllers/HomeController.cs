@@ -19,17 +19,23 @@ namespace shate_m_test.Controllers
         {
             this.context = context;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var homeModel = new HomeViewModel
+            List<BrandViewModel> BrandList = new List<BrandViewModel>();
+            foreach (var brand in context.Brands)
             {
-                Brands = await context.Brands.ToListAsync(),
-                CarModels = await context.CarModels.ToListAsync()
-            };
+                BrandList.Add(new BrandViewModel
+                {
+                    Name = brand.Name,
+                    Id = brand.BrandId
+                });
+            }
+            
             ViewBag.BrandList = context.Brands.Select(a => new SelectListItem() { Value = a.BrandId.ToString(), Text = a.Name }).ToList();
 
-            return View(homeModel);
+            return View(BrandList);
         }
+
        
     }
 }
