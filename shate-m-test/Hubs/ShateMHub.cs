@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using shate_m_test.DAL;
 using shate_m_test.DAL.Context;
 using System;
@@ -38,7 +40,8 @@ namespace shate_m_test.Hubs
         }
         public async Task GetModels(int id)
         {
-            var modelList = context.CarModels.Where(c => c.BrandId == id).ToArray();
+            List<CarModel> modelList = context.CarModels.Where(c => c.BrandId == id).ToList();
+            var jj = JsonConvert.SerializeObject(modelList, new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
             await Clients.All.SendAsync("GetModels", modelList);
         }
     }
