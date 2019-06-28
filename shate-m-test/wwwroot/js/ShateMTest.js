@@ -42,12 +42,19 @@ submitAddCarModel.onclick = function () {
         .catch(function (err) {
             return console.error(err.toString());
         });
+    document.getElementById("car-model").value = "";
+    document.getElementById("car-model").focus();
 };
 [].forEach.call(showLinks, function (item) {
     item.addEventListener("click", function (event) {
         while (modelList.firstChild) {
             modelList.removeChild(modelList.firstChild);
         };
+        [].forEach.call(carList.getElementsByTagName("li"), function (item) {
+            if (item.classList.contains("font-weight-bold")) {
+                item.classList.remove("font-weight-bold")
+            };
+        });
         ShateMTestConnection.invoke("GetModels", item.closest("li").getElementsByTagName("input")[0].value)
             .catch(function (err) {
                 return console.error(err.toString());
@@ -55,8 +62,9 @@ submitAddCarModel.onclick = function () {
         event.preventDefault();
     });
 });
-ShateMTestConnection.on("GetModels", function (data) {
+ShateMTestConnection.on("GetModels", function (data, id) {
     var result = JSON.parse(data);
+    carList.querySelector("#b-" + id).classList.add("font-weight-bold");
     if (!modelList.childElementCount) {
         for (var i = 0; i < result.length; i++) {
             var li = document.createElement("li");

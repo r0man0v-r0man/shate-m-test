@@ -7,7 +7,7 @@
         <ul id="car-brand-list" class="list-group list-group-flush justify-content-end">
             @foreach (var brand in Model)
             {
-                <li class="list-group-item list-group-item-action">
+                <li id="b-@brand.Id" class="list-group-item list-group-item-action">
                     <a id="show-link" class="link" href="#">@brand.Name</a>
                     <input id="b-id" type="hidden" value="@brand.Id" name="brandId" />
                 </li>
