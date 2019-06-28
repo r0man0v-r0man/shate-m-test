@@ -19,6 +19,7 @@
     </div>
     <div class="col-6">
         @{await Html.RenderPartialAsync("_AddBrand", new AddBrand());}
+        <hr />
         @{await Html.RenderPartialAsync("AddCarModel", new AddCarBrandViewModel { Brands = ViewBag.BrandList });}
     </div>
 </div>

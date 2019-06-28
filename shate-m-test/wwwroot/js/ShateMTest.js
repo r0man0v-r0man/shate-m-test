@@ -47,6 +47,7 @@ submitAddCarModel.onclick = function () {
 };
 [].forEach.call(showLinks, function (item) {
     item.addEventListener("click", function (event) {
+        item.classList.add("animated", "bounce");
         while (modelList.firstChild) {
             modelList.removeChild(modelList.firstChild);
         };
@@ -68,7 +69,7 @@ ShateMTestConnection.on("GetModels", function (data, id) {
     if (!modelList.childElementCount) {
         for (var i = 0; i < result.length; i++) {
             var li = document.createElement("li");
-            li.className = "list-group-item";
+            li.className = "list-group-item list-group-item-action";
             li.innerText = result[i].Name;
             modelList.appendChild(li);
         };

@@ -41,7 +41,7 @@ namespace shate_m_test.Hubs
         public async Task GetModels(int id)
         {
             List<CarModel> modelList = context.CarModels.Where(c => c.BrandId == id).ToList();
-            var result = JsonConvert.SerializeObject(modelList, new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+            var result = JsonConvert.SerializeObject(modelList, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
             await Clients.All.SendAsync("GetModels", result, id);
         }
     }
