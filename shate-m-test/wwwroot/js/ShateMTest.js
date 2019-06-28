@@ -69,9 +69,16 @@ ShateMTestConnection.on("GetModels", function (data, id) {
     if (!modelList.childElementCount) {
         for (var i = 0; i < result.length; i++) {
             var li = document.createElement("li");
+            var liInput = document.createElement("li");
+            var input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("value", result[i].BrandId);
+            liInput.className = "d-none";
+            liInput.appendChild(input);
             li.className = "list-group-item list-group-item-action";
             li.innerText = result[i].Name;
             modelList.appendChild(li);
+            modelList.appendChild(liInput);
         };
     };
     
