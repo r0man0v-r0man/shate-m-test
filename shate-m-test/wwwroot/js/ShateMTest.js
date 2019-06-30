@@ -34,7 +34,6 @@ ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     a.setAttribute("href", "#");
     a.setAttribute("name", brandId);
     a.innerText = brandName;
-    //a.setAttribute("onclick", "show(" + brandId +")");
     li.id = "b-" + brandId;
     li.classList.add("list-group-item", "list-group-item-primary");
     li.append(a);
@@ -56,20 +55,6 @@ submitAddCarModel.onclick = function () {
     document.getElementById("car-model").value = "";
     document.getElementById("car-model").focus();
 };
-[].forEach.call(showLinks, function (item) {
-    item.addEventListener("click", function (event) {
-        [].forEach.call(carList.getElementsByTagName("li"), function (item) {
-            if (item.classList.contains("font-weight-bold")) {
-                item.classList.remove("font-weight-bold")
-            };
-        });
-        //ShateMTestConnection.invoke("GetModels", item.closest("li").getElementsByTagName("input")[0].value)
-        //    .catch(function (err) {
-        //        return console.error(err.toString());
-        //    });
-        event.preventDefault();
-    });
-});
 ShateMTestConnection.on("GetModels", function (data, id) {
     var result = JSON.parse(data);
     if (!modelList.childElementCount) {
@@ -88,13 +73,6 @@ ShateMTestConnection.on("GetModels", function (data, id) {
         };
     };
 });
-//function show(id) {
-//    alert(id);
-//    ShateMTestConnection.invoke("GetModels", id)
-//        .catch(function (err) {
-//            return console.error(err.toString());
-//        });
-//};
 document.addEventListener("click", function (e) {
     if (e.target && e.target.className == "link show-link") {
         while (modelList.firstChild) {
