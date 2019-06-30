@@ -5,7 +5,7 @@ var submitAddBrand = document.getElementById("add-brand-submit");
 var carList = document.getElementById("car-brand-list");
 var submitAddCarModel = document.getElementById("add-car-model-submit");
 var modelList = document.getElementById("model-list");
-var showLinks = document.querySelectorAll("#show-link");
+var showLinks = document.getElementsByClassName("show-link");
 ShateMTestConnection.start()
     .then(function () {
         console.log("connection shate m started");
@@ -27,14 +27,25 @@ ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     var li = document.createElement("li");
     var liBrandId = document.createElement("li");
     var input = document.createElement("input");
+    var a = document.createElement("a");
     input.setAttribute("type", "hidden");
     input.setAttribute("value", brandId);
+    a.className = "link show-link";
+    a.setAttribute("href", "#");
+    a.innerText = brandName;
+    li.id = "b-" + brandId;
     li.classList.add("list-group-item", "list-group-item-primary");
-    li.innerText = brandName;
+    li.append(a);
     liBrandId.className = "d-none";
     liBrandId.appendChild(input);
     carList.appendChild(li);
     carList.appendChild(liBrandId);
+    var selectBrands = document.getElementById("brand-id");
+    var option = document.createElement("option");
+    option.text = brandName;
+    option.value = brandId;
+    selectBrands.add(option);
+    $(".selectpicker").selectpicker("refresh");
 });
 
 submitAddCarModel.onclick = function () {
@@ -81,5 +92,7 @@ ShateMTestConnection.on("GetModels", function (data, id) {
             modelList.appendChild(liInput);
         };
     };
-    
 });
+function show(id) {
+    alert(id);
+};

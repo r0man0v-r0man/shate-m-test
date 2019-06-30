@@ -8,7 +8,7 @@
             @foreach (var brand in Model)
             {
                 <li id="b-@brand.Id" class="list-group-item list-group-item-action">
-                    <a id="show-link" class="link" href="#">@brand.Name</a>
+                    <a class="link show-link" href="#">@brand.Name</a>
                     <input id="b-id" type="hidden" value="@brand.Id" name="brandId" />
                 </li>
             }
