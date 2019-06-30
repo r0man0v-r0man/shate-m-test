@@ -72,7 +72,6 @@ submitAddCarModel.onclick = function () {
 });
 ShateMTestConnection.on("GetModels", function (data, id) {
     var result = JSON.parse(data);
-    carList.querySelector("#b-" + id).classList.add("font-weight-bold");
     if (!modelList.childElementCount) {
         for (var i = 0; i < result.length; i++) {
             var li = document.createElement("li");
@@ -100,11 +99,6 @@ document.addEventListener("click", function (e) {
     if (e.target && e.target.className == "link show-link") {
         while (modelList.firstChild) {
             modelList.removeChild(modelList.firstChild);
-        };
-        for (var i = 0; i < showLinks.item; i++) {
-            if (showLinks[i].classList.contains("font-weight-bold")) {
-                showLinks[i].classList.remove("font-weight-bold")
-            };
         };
         ShateMTestConnection.invoke("GetModels", e.target.getAttribute("name"))
             .catch(function (err) {
