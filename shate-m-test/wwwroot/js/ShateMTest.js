@@ -25,21 +25,21 @@ submitAddBrand.onclick = function (event) {
 };
 ShateMTestConnection.on("AddBrand", function (brandName, brandId) {
     var li = document.createElement("li");
-    var liBrandId = document.createElement("li");
     var input = document.createElement("input");
     var a = document.createElement("a");
     input.setAttribute("type", "hidden");
     input.setAttribute("value", brandId);
+    input.setAttribute("name", "brandId");
     a.className = "link show-link";
     a.setAttribute("href", "#");
+    a.setAttribute("name", brandId);
     a.innerText = brandName;
+    //a.setAttribute("onclick", "show(" + brandId +")");
     li.id = "b-" + brandId;
     li.classList.add("list-group-item", "list-group-item-primary");
     li.append(a);
-    liBrandId.className = "d-none";
-    liBrandId.appendChild(input);
+    li.append(input);
     carList.appendChild(li);
-    carList.appendChild(liBrandId);
     var selectBrands = document.getElementById("brand-id");
     var option = document.createElement("option");
     option.text = brandName;
@@ -58,19 +58,15 @@ submitAddCarModel.onclick = function () {
 };
 [].forEach.call(showLinks, function (item) {
     item.addEventListener("click", function (event) {
-        item.classList.add("animated", "bounce");
-        while (modelList.firstChild) {
-            modelList.removeChild(modelList.firstChild);
-        };
         [].forEach.call(carList.getElementsByTagName("li"), function (item) {
             if (item.classList.contains("font-weight-bold")) {
                 item.classList.remove("font-weight-bold")
             };
         });
-        ShateMTestConnection.invoke("GetModels", item.closest("li").getElementsByTagName("input")[0].value)
-            .catch(function (err) {
-                return console.error(err.toString());
-            });
+        //ShateMTestConnection.invoke("GetModels", item.closest("li").getElementsByTagName("input")[0].value)
+        //    .catch(function (err) {
+        //        return console.error(err.toString());
+        //    });
         event.preventDefault();
     });
 });
@@ -93,6 +89,26 @@ ShateMTestConnection.on("GetModels", function (data, id) {
         };
     };
 });
-function show(id) {
-    alert(id);
-};
+//function show(id) {
+//    alert(id);
+//    ShateMTestConnection.invoke("GetModels", id)
+//        .catch(function (err) {
+//            return console.error(err.toString());
+//        });
+//};
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.className == "link show-link") {
+        while (modelList.firstChild) {
+            modelList.removeChild(modelList.firstChild);
+        };
+        for (var i = 0; i < showLinks.item; i++) {
+            if (showLinks[i].classList.contains("font-weight-bold")) {
+                showLinks[i].classList.remove("font-weight-bold")
+            };
+        };
+        ShateMTestConnection.invoke("GetModels", e.target.getAttribute("name"))
+            .catch(function (err) {
+                return console.error(err.toString());
+            });
+    }
+});
